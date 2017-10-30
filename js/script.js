@@ -28,6 +28,29 @@ function loadData() {
 
 	$body.append('<img class="bgimg" src="' + imgUrl + '">');
 
+	var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+	url += '?' + $.param({
+		'api-key': newYorkTimeAPI,
+		'q': ($streetStr + " " + $cityStr)
+	});
+
+	$.getJSON(url, function(data) {
+		console.log('get newyork times data success:' + JSON.stringify(data));
+
+		var docs = data.response.docs;
+		var items = [];
+		$.each(docs, function(key, val) {
+			items.push("<li class='article'><a href='" +
+				val.web_url + "'>" + val.headline.print_headline + "</a><p>" + val.snippet + "</p></li>");
+		});
+
+		$("<ul/>", {
+			"id": "nytimes-articles",
+			"class": "article-list",
+			html: items.join("")
+		}).appendTo("body");
+	});
+
 	return false;
 };
 
