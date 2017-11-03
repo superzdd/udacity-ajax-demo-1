@@ -34,6 +34,7 @@ function loadData() {
 		'q': ($streetStr + " " + $cityStr)
 	});
 
+	url = "adfsdfdsf";
 	$.getJSON(url, function(data) {
 		console.log('get newyork times data success:' + JSON.stringify(data));
 
@@ -49,6 +50,11 @@ function loadData() {
 			"class": "article-list",
 			html: items.join("")
 		}).appendTo("body");
+		
+		$("#nytimes-header").html("New York Times Articles");
+	}).error(function(){
+		$("#nytimes-header").html("New York Times Articles Could Not Be Loaded");
+		console.log("New York Times Articles Could Not Be Loaded");
 	});
 
 	return false;
